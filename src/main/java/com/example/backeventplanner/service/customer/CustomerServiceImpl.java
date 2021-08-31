@@ -71,7 +71,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteById(Long id) {
         customerRepo.deleteById(id);
-//        boolean exists = customerRepo.existsById()
     }
 
     private Customer customerFromDto(CustomerDTO dto) {
