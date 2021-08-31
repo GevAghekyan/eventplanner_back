@@ -4,6 +4,8 @@ import com.example.backeventplanner.facade.employee.EmployeeDTO;
 import com.example.backeventplanner.persistence.employee.Employee;
 import com.example.backeventplanner.persistence.employee.EmployeeRepo;
 import com.example.backeventplanner.persistence.person.Person;
+import com.example.backeventplanner.persistence.person.PersonRepo;
+import com.example.backeventplanner.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +17,24 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepo employeeRepo;
+    private final PersonService personService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepo employeeRepo) {
+    public EmployeeServiceImpl(EmployeeRepo employeeRepo, PersonService personService) {
         this.employeeRepo = employeeRepo;
+        this.personService = personService;
     }
 
     @Override
     public EmployeeDTO create(EmployeeDTO dto) {
         Employee employee = employeeFromDto(dto);
-        Employee saved = employeeRepo.save(employee);
-        return dtoFromEmployee(saved);
+        Boolean check = personService.checkedUserName(dto.getUserName());
+        if (check) {
+            Employee saved = new Employee();
+            saved = employeeRepo.save(employee);
+            return dtoFromEmployee(saved);
+        }
+        return new EmployeeDTO();
     }
 
     @Override

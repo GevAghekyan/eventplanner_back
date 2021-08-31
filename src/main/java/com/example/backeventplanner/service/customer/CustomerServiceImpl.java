@@ -4,6 +4,8 @@ import com.example.backeventplanner.facade.customer.CustomerDTO;
 import com.example.backeventplanner.persistence.customer.Customer;
 import com.example.backeventplanner.persistence.customer.CustomerRepo;
 import com.example.backeventplanner.persistence.person.Person;
+import com.example.backeventplanner.persistence.person.PersonRepo;
+import com.example.backeventplanner.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,34 +17,37 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepo customerRepo;
+    private final PersonService personService;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepo customerRepo) {
+    public CustomerServiceImpl(CustomerRepo customerRepo, PersonService personService) {
         this.customerRepo = customerRepo;
+        this.personService = personService;
     }
 
     @Override
     public CustomerDTO create(CustomerDTO dto) {
         Customer customer = customerFromDto(dto);
-        Customer saved = new Customer();
-        Boolean check = checkedUserName(dto.getUserName());
+        Boolean check = personService.checkedUserName(dto.getUserName());
         if (check) {
+            Customer saved = new Customer();
             saved = customerRepo.save(customer);
+            return dtoFromCustomer(saved);
         }
-        return dtoFromCustomer(saved,check);
+        return new CustomerDTO();
     }
 
     @Override
     public CustomerDTO getById(Long id) {
         Customer byId = customerRepo.getById(id);
-        return dtoFromCustomer(byId,true);
+        return dtoFromCustomer(byId);
     }
 
     @Override
     public ArrayList<CustomerDTO> getAll() {
         List<Customer> all = customerRepo.findAll();
         List<CustomerDTO> collect = all.stream()
-                .map(each -> dtoFromCustomer(each,true))
+                .map(each -> dtoFromCustomer(each))
                 .collect(Collectors.toList());
         return (ArrayList<CustomerDTO>) collect;
     }
@@ -60,23 +65,12 @@ public class CustomerServiceImpl implements CustomerService {
         if (dto.getEmail() != null) byId.setEmail(dto.getEmail());
         if (dto.getDateOfBirth() != null) byId.setDateOfBirth(dto.getDateOfBirth());
         Customer saved = customerRepo.save(byId);
-        return dtoFromCustomer(saved,true);
+        return dtoFromCustomer(saved);
     }
 
     @Override
     public void deleteById(Long id) {
         customerRepo.deleteById(id);
-//        boolean exists = customerRepo.existsById()
-    }
-
-    private Boolean checkedUserName(String userName) {
-        Customer byUserName = customerRepo.findByUserName(userName);
-        boolean check = false;
-        if (byUserName == null) {
-            check = true;
-        }
-        System.out.println(check);
-        return check;
     }
 
     private Customer customerFromDto(CustomerDTO dto) {
@@ -99,9 +93,8 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
-    private CustomerDTO dtoFromCustomer(Customer customer,boolean check) {
+    private CustomerDTO dtoFromCustomer(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
-        if (check) {
             customerDTO.setId(customer.getId());
             customerDTO.setName(customer.getName());
             customerDTO.setSurname(customer.getSurname());
@@ -113,7 +106,6 @@ public class CustomerServiceImpl implements CustomerService {
             customerDTO.setPassword(customer.getPassword());
             customerDTO.setRole();
             customerDTO.setPersonId(customer.getPerson().getId());
-        }
         return customerDTO;
     }
 }
