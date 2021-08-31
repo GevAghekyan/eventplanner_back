@@ -44,8 +44,10 @@ public class UserController {
             if (model.getRole().equals("CUSTOMER")) {
                 CustomerResponseModel customerResponseModel = customerFacade.create(customerConverter.requestFromRegistrationModel(model));
                 if (customerResponseModel.getId() == null) check = false;
+                System.out.println(customerResponseModel);
             } else if (model.getRole().equals("EMPLOYEE")) {
                 EmployeeResponseModel employeeResponseModel = employeeFacade.create(employeeConverter.requestFromRegistrationModel(model));
+                System.out.println(employeeResponseModel);
                 if (employeeResponseModel.getId() == null) check = false;
             } else {
                 check = false;
