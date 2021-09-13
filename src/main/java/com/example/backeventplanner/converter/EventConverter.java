@@ -15,6 +15,7 @@ public class EventConverter {
         eventDTO.setDescription(requestModel.getDescription());
         eventDTO.setSerialNumber();
         eventDTO.setCustomerId(requestModel.getCustomerId());
+        eventDTO.setPrice(requestModel.getPrice());
         eventDTO.setEmployeeIds(requestModel.getEmployeeIds());
         return eventDTO;
     }

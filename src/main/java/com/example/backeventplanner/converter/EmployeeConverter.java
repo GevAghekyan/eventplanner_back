@@ -13,6 +13,11 @@ public class EmployeeConverter {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         employeeDTO.setName(requestModel.getName());
         employeeDTO.setSurname(requestModel.getSurname());
+        if (requestModel.getCompanyName() != null) {
+            employeeDTO.setCompanyName(requestModel.getCompanyName());
+        } else {
+            employeeDTO.setCompanyName(requestModel.getName() + " " + requestModel.getSurname());
+        }
         employeeDTO.setGender(requestModel.getGender());
         employeeDTO.setPhoneNumber(requestModel.getPhoneNumber());
         employeeDTO.setDateOfBirth(requestModel.getDateOfBirth());
@@ -31,6 +36,7 @@ public class EmployeeConverter {
         employeeResponseModel.setId(dto.getId());
         employeeResponseModel.setName(dto.getName());
         employeeResponseModel.setSurname(dto.getSurname());
+        employeeResponseModel.setCompanyName(dto.getCompanyName());
         employeeResponseModel.setGender(dto.getGender());
         employeeResponseModel.setPhoneNumber(dto.getPhoneNumber());
         employeeResponseModel.setDateOfBirth(dto.getDateOfBirth());
@@ -43,10 +49,11 @@ public class EmployeeConverter {
         return employeeResponseModel;
     }
 
-    public EmployeeRequestModel requestFromRegistrationModel(RegistrationModel model){
+    public EmployeeRequestModel requestFromRegistrationModel(RegistrationModel model) {
         EmployeeRequestModel employeeRequestModel = new EmployeeRequestModel();
         employeeRequestModel.setName(model.getFirstName());
         employeeRequestModel.setSurname(model.getLastName());
+        employeeRequestModel.setCompanyName(model.getCompanyName());
         employeeRequestModel.setGender(model.getGender());
         employeeRequestModel.setPhoneNumber(model.getPhone());
         employeeRequestModel.setDateOfBirth(model.getDate());

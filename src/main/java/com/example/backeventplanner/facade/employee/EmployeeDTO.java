@@ -10,6 +10,7 @@ public class EmployeeDTO {
     private Long id;
     private String name;
     private String surname;
+    private String companyName;
     private String gender;
     private String phoneNumber;
     private Date dateOfBirth;
@@ -17,7 +18,6 @@ public class EmployeeDTO {
     private String specialist;
     private Integer price;
     private String about;
-    private String companyName;
     private String userName;
     private String password;
     private String role;
@@ -142,5 +142,26 @@ public class EmployeeDTO {
 
     public void setPersonId(Long personId) {
         this.personId = personId;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", email='" + email + '\'' +
+                ", specialist='" + specialist + '\'' +
+                ", price=" + price +
+                ", about='" + about + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", personId=" + personId +
+                '}';
     }
 }

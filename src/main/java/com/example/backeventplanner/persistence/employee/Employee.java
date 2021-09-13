@@ -14,6 +14,7 @@ public class Employee {
     private Long id;
     private String name;
     private String surname;
+    private String companyName;
     private String gender;
     private String phoneNumber;
     private Date dateOfBirth;
@@ -50,6 +51,14 @@ public class Employee {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getGender() {
@@ -174,6 +183,7 @@ public class Employee {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", companyName='" + companyName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", dateOfBirth=" + dateOfBirth +

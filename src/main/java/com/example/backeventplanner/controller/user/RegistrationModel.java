@@ -7,6 +7,7 @@ public class RegistrationModel {
 
     private String firstName;
     private String lastName;
+    private String companyName;
     private String email;
     private String phone;
     private String gender;
@@ -16,13 +17,26 @@ public class RegistrationModel {
     private String confirmPassword;
     private String role;
     private String occupation;
-    private String companyName;
-    private File image1;
-    private File image2;
-    private File image3;
-    private File image4;
     private Integer price;
     private String description;
+    private String image1;
+    private String logo;
+
+    public String getImage1() {
+        return image1;
+    }
+
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -120,38 +134,6 @@ public class RegistrationModel {
         this.companyName = companyName;
     }
 
-    public File getImage1() {
-        return image1;
-    }
-
-    public void setImage1(File image1) {
-        this.image1 = image1;
-    }
-
-    public File getImage2() {
-        return image2;
-    }
-
-    public void setImage2(File image2) {
-        this.image2 = image2;
-    }
-
-    public File getImage3() {
-        return image3;
-    }
-
-    public void setImage3(File image3) {
-        this.image3 = image3;
-    }
-
-    public File getImage4() {
-        return image4;
-    }
-
-    public void setImage4(File image4) {
-        this.image4 = image4;
-    }
-
     public Integer getPrice() {
         return price;
     }
@@ -183,10 +165,6 @@ public class RegistrationModel {
                 ", role='" + role + '\'' +
                 ", occupation='" + occupation + '\'' +
                 ", companyName='" + companyName + '\'' +
-                ", image1=" + image1 +
-                ", image2=" + image2 +
-                ", image3=" + image3 +
-                ", image4=" + image4 +
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 '}';

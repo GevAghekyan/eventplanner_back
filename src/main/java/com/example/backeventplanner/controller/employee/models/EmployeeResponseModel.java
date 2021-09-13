@@ -7,13 +7,13 @@ public class EmployeeResponseModel {
     private Long id;
     private String name;
     private String surname;
+    private String companyName;
     private String gender;
     private String phoneNumber;
     private Date dateOfBirth;
     private String specialist;
     private Integer price;
     private String about;
-    private String companyName;
     private String email;
     private String userName;
     private String role;

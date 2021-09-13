@@ -19,11 +19,11 @@ public class CustomerController {
         this.customerFacade = customerFacade;
     }
 
-    @PostMapping("/customer/create")
-    public ResponseEntity<CustomerResponseModel> register(@RequestBody CustomerRequestModel requestModel) {
-        CustomerResponseModel responseModel = customerFacade.create(requestModel);
-        return ResponseEntity.ok(responseModel);
-    }
+//    @PostMapping("/customer/create")
+//    public ResponseEntity<CustomerResponseModel> register(@RequestBody CustomerRequestModel requestModel) {
+//        CustomerResponseModel responseModel = customerFacade.create(requestModel);
+//        return ResponseEntity.ok(responseModel);
+//    }
 
     @GetMapping("/customer/create/{id}")
     public ResponseEntity<CustomerResponseModel> getById(@PathVariable Long id) {
@@ -47,4 +47,6 @@ public class CustomerController {
     public void delete(@PathVariable Long id) {
         customerFacade.deleteById(id);
     }
+
+
 }

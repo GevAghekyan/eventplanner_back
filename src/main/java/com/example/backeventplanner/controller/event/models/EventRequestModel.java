@@ -8,6 +8,7 @@ public class EventRequestModel {
     private Date date;
     private String description;
     private Long customerId;
+    private Integer price;
     private ArrayList<Long> employeeIds;
 
     public String getType() {
@@ -42,6 +43,14 @@ public class EventRequestModel {
         this.customerId = customerId;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public ArrayList<Long> getEmployeeIds() {
         return employeeIds;
     }
@@ -57,6 +66,7 @@ public class EventRequestModel {
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 ", customerId=" + customerId +
+                ", price=" + price +
                 ", employeeIds=" + employeeIds +
                 '}';
     }

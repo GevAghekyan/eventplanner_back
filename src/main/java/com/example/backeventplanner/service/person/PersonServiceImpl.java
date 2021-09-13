@@ -15,11 +15,7 @@ public class PersonServiceImpl implements PersonService {
 
     public Boolean checkedUserName(String userName) {
         Person byUserName = personRepo.findByUserName(userName);
-        boolean check = false;
-        if (byUserName == null) {
-            check = true;
-        }
-        System.out.println(check);
+        boolean check = byUserName == null;
         return check;
     }
 }

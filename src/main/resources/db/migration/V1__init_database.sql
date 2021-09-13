@@ -15,6 +15,7 @@ create table customer (
 create table employee (
                           id bigint not null auto_increment,
                           about varchar(255),
+                          company_name varchar(255),
                           date_of_birth date,
                           email varchar(255),
                           gender varchar(255),

@@ -6,6 +6,7 @@ public class EmployeeRequestModel {
 
     private String name;
     private String surname;
+    private String companyName;
     private String gender;
     private String phoneNumber;
     private Date dateOfBirth;
@@ -13,7 +14,6 @@ public class EmployeeRequestModel {
     private String specialist;
     private Integer price;
     private String about;
-    private String companyName;
     private String userName;
     private String password;
 

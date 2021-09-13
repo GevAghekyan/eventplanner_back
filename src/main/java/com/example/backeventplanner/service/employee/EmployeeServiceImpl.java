@@ -1,11 +1,13 @@
 package com.example.backeventplanner.service.employee;
 
+import com.example.backeventplanner.controller.employee.models.EmployeeShortResponse;
 import com.example.backeventplanner.facade.employee.EmployeeDTO;
 import com.example.backeventplanner.persistence.employee.Employee;
 import com.example.backeventplanner.persistence.employee.EmployeeRepo;
 import com.example.backeventplanner.persistence.person.Person;
 import com.example.backeventplanner.persistence.person.PersonRepo;
 import com.example.backeventplanner.service.person.PersonService;
+import com.example.backeventplanner.service.portfolio.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepo employeeRepo;
     private final PersonService personService;
+    private final PortfolioService portfolioService;
+
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepo employeeRepo, PersonService personService) {
+    public EmployeeServiceImpl(EmployeeRepo employeeRepo, PersonService personService, PortfolioService portfolioService) {
         this.employeeRepo = employeeRepo;
         this.personService = personService;
+        this.portfolioService = portfolioService;
     }
 
     @Override
@@ -30,8 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeFromDto(dto);
         Boolean check = personService.checkedUserName(dto.getUserName());
         if (check) {
-            Employee saved = new Employee();
-            saved = employeeRepo.save(employee);
+            Employee saved = employeeRepo.save(employee);
             return dtoFromEmployee(saved);
         }
         return new EmployeeDTO();
@@ -41,6 +45,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO getById(Long id) {
         Employee byId = employeeRepo.getById(id);
         return dtoFromEmployee(byId);
+    }
+
+    @Override
+    public List<EmployeeShortResponse> findAllBySpecialist(String specialist) {
+        List<Employee> all = employeeRepo.findAllBySpecialist(specialist);
+        List<EmployeeShortResponse> collect = all.stream()
+                .map(employee -> employeeShortResponseFromEmployee(employee))
+                .collect(Collectors.toList());
+        return collect;
     }
 
     @Override
@@ -81,6 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setId(dto.getId());
         employee.setName(dto.getName());
         employee.setSurname(dto.getSurname());
+        employee.setCompanyName(dto.getCompanyName());
         employee.setGender(dto.getGender());
         employee.setPhoneNumber(dto.getPhoneNumber());
         employee.setDateOfBirth(dto.getDateOfBirth());
@@ -104,6 +118,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDTO.setId(employee.getId());
         employeeDTO.setName(employee.getName());
         employeeDTO.setSurname(employee.getSurname());
+        employeeDTO.setCompanyName(employee.getCompanyName());
         employeeDTO.setGender(employee.getGender());
         employeeDTO.setPhoneNumber(employee.getPhoneNumber());
         employeeDTO.setDateOfBirth(employee.getDateOfBirth());
@@ -117,4 +132,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDTO.setPersonId(employee.getPerson().getId());
         return employeeDTO;
     }
+
+    private EmployeeShortResponse employeeShortResponseFromEmployee(Employee employee){
+        EmployeeShortResponse employeeShortResponse = new EmployeeShortResponse();
+        employeeShortResponse.setId(employee.getId());
+        employeeShortResponse.setCompanyName(employee.getCompanyName());
+        employeeShortResponse.setPrice(employee.getPrice());
+        String logoUrl = portfolioService.logoUrlByEmpId(employee.getId());
+        employeeShortResponse.setLogoUrl(logoUrl);
+        return employeeShortResponse;
+
+    }
+
+
 }

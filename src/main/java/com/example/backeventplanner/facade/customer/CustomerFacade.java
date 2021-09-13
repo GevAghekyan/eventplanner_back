@@ -24,10 +24,11 @@ public class CustomerFacade {
         this.customerService = customerService;
     }
 
-    public CustomerResponseModel create(CustomerRequestModel requestModel) {
+    public Boolean create(CustomerRequestModel requestModel) {
         CustomerDTO customerDTO = customerConverter.dtoFromRequest(requestModel);
         CustomerDTO dtoReturned = customerService.create(customerDTO);
-        return customerConverter.responseFromDto(dtoReturned);
+        boolean check = dtoReturned.getId() != null;
+        return check;
     }
 
     public CustomerResponseModel getById(Long id) {

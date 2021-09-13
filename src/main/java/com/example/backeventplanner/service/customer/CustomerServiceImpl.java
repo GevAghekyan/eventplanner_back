@@ -30,8 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerFromDto(dto);
         Boolean check = personService.checkedUserName(dto.getUserName());
         if (check) {
-            Customer saved = new Customer();
-            saved = customerRepo.save(customer);
+            Customer saved = customerRepo.save(customer);
             return dtoFromCustomer(saved);
         }
         return new CustomerDTO();
