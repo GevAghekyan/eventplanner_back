@@ -1,14 +1,16 @@
-package com.example.backeventplanner.converter;
+package com.example.backeventplanner.converter.employee;
 
 import com.example.backeventplanner.annotation.Converter;
 import com.example.backeventplanner.controller.employee.models.EmployeeRequestModel;
 import com.example.backeventplanner.controller.employee.models.EmployeeResponseModel;
 import com.example.backeventplanner.controller.user.RegistrationModel;
+import com.example.backeventplanner.converter.employee.EmployeeConverter;
 import com.example.backeventplanner.facade.employee.EmployeeDTO;
 
 @Converter
-public class EmployeeConverter {
+public class EmployeeConverterImpl implements EmployeeConverter {
 
+    @Override
     public EmployeeDTO dtoFromRequest(EmployeeRequestModel requestModel) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         employeeDTO.setName(requestModel.getName());
@@ -31,6 +33,7 @@ public class EmployeeConverter {
         return employeeDTO;
     }
 
+    @Override
     public EmployeeResponseModel responseFromDto(EmployeeDTO dto) {
         EmployeeResponseModel employeeResponseModel = new EmployeeResponseModel();
         employeeResponseModel.setId(dto.getId());
@@ -49,6 +52,7 @@ public class EmployeeConverter {
         return employeeResponseModel;
     }
 
+    @Override
     public EmployeeRequestModel requestFromRegistrationModel(RegistrationModel model) {
         EmployeeRequestModel employeeRequestModel = new EmployeeRequestModel();
         employeeRequestModel.setName(model.getFirstName());

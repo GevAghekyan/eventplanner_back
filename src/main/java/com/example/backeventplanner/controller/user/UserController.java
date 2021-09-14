@@ -1,16 +1,13 @@
 package com.example.backeventplanner.controller.user;
 
-import com.example.backeventplanner.controller.customer.models.CustomerResponseModel;
-import com.example.backeventplanner.converter.CustomerConverter;
-import com.example.backeventplanner.converter.EmployeeConverter;
+import com.example.backeventplanner.converter.customer.CustomerConverterImpl;
+import com.example.backeventplanner.converter.employee.EmployeeConverterImpl;
 import com.example.backeventplanner.facade.customer.CustomerFacade;
 import com.example.backeventplanner.facade.employee.EmployeeFacade;
-import com.example.backeventplanner.persistence.person.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,16 +17,16 @@ import java.io.IOException;
 @CrossOrigin
 public class UserController {
 
-    private final CustomerConverter customerConverter;
-    private final EmployeeConverter employeeConverter;
+    private final CustomerConverterImpl customerConverterImpl;
+    private final EmployeeConverterImpl employeeConverterImpl;
     private final CustomerFacade customerFacade;
     private final EmployeeFacade employeeFacade;
 
     @Autowired
-    public UserController(CustomerConverter customerConverter, EmployeeConverter employeeConverter,
+    public UserController(CustomerConverterImpl customerConverterImpl, EmployeeConverterImpl employeeConverterImpl,
                           CustomerFacade customerFacade, EmployeeFacade employeeFacade) {
-        this.customerConverter = customerConverter;
-        this.employeeConverter = employeeConverter;
+        this.customerConverterImpl = customerConverterImpl;
+        this.employeeConverterImpl = employeeConverterImpl;
         this.customerFacade = customerFacade;
         this.employeeFacade = employeeFacade;
     }
@@ -66,7 +63,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public ResponseEntity<Boolean> registerCustomer(@RequestBody RegistrationModel model) {
-        boolean check = customerFacade.create(customerConverter.requestFromRegistrationModel(model));
+        boolean check = customerFacade.create(customerConverterImpl.requestFromRegistrationModel(model));
         System.out.println("checking" + check);
         return ResponseEntity.ok(check);
     }
@@ -76,14 +73,15 @@ public class UserController {
                                             @RequestPart("body") String body) throws IOException {
         RegistrationModel registrationModel = new ObjectMapper().readValue(body, RegistrationModel.class);
         Boolean check = employeeFacade.create(
-                employeeConverter.requestFromRegistrationModel(registrationModel), logo, image1);
+                employeeConverterImpl.requestFromRegistrationModel(registrationModel), logo, image1);
         System.out.println(check);
         return ResponseEntity.ok(check);
     }
 
     @GetMapping(value = "/login")
-    public ResponseEntity<Boolean> login(){
+    public ResponseEntity<Boolean> login(@RequestHeader("Authorization") String token){
 //        System.out.println(person.getId());
+        System.out.println(token);
         return ResponseEntity.ok(true);
     }
 }

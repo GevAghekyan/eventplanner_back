@@ -3,7 +3,7 @@ package com.example.backeventplanner.facade.customer;
 import com.example.backeventplanner.annotation.Facade;
 import com.example.backeventplanner.controller.customer.models.CustomerRequestModel;
 import com.example.backeventplanner.controller.customer.models.CustomerResponseModel;
-import com.example.backeventplanner.converter.CustomerConverter;
+import com.example.backeventplanner.converter.customer.CustomerConverterImpl;
 import com.example.backeventplanner.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,18 +14,18 @@ import java.util.stream.Collectors;
 @Facade
 public class CustomerFacade {
 
-    private final CustomerConverter customerConverter;
+    private final CustomerConverterImpl customerConverterImpl;
     private final CustomerService customerService;
 
 
     @Autowired
-    public CustomerFacade(CustomerConverter customerConverter, CustomerService customerService) {
-        this.customerConverter = customerConverter;
+    public CustomerFacade(CustomerConverterImpl customerConverterImpl, CustomerService customerService) {
+        this.customerConverterImpl = customerConverterImpl;
         this.customerService = customerService;
     }
 
     public Boolean create(CustomerRequestModel requestModel) {
-        CustomerDTO customerDTO = customerConverter.dtoFromRequest(requestModel);
+        CustomerDTO customerDTO = customerConverterImpl.dtoFromRequest(requestModel);
         CustomerDTO dtoReturned = customerService.create(customerDTO);
         boolean check = dtoReturned.getId() != null;
         return check;
@@ -33,13 +33,13 @@ public class CustomerFacade {
 
     public CustomerResponseModel getById(Long id) {
         CustomerDTO byId = customerService.getById(id);
-        return customerConverter.responseFromDto(byId);
+        return customerConverterImpl.responseFromDto(byId);
     }
 
     public ArrayList<CustomerResponseModel> getAll() {
         ArrayList<CustomerDTO> all = customerService.getAll();
         List<CustomerResponseModel> collect = all.stream()
-                .map(each -> customerConverter.responseFromDto(each))
+                .map(each -> customerConverterImpl.responseFromDto(each))
                 .collect(Collectors.toList());
         return (ArrayList<CustomerResponseModel>) collect;
     }
@@ -48,9 +48,9 @@ public class CustomerFacade {
      * its not update username, password & role*/
 
     public CustomerResponseModel updateById(Long id, CustomerRequestModel requestModel) {
-        CustomerDTO customerDTO = customerConverter.dtoFromRequest(requestModel);
+        CustomerDTO customerDTO = customerConverterImpl.dtoFromRequest(requestModel);
         CustomerDTO updateById = customerService.updateById(id, customerDTO);
-        return customerConverter.responseFromDto(updateById);
+        return customerConverterImpl.responseFromDto(updateById);
     }
 
     public void deleteById(Long id) {

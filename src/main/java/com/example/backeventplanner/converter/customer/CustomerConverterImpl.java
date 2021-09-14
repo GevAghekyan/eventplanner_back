@@ -1,14 +1,16 @@
-package com.example.backeventplanner.converter;
+package com.example.backeventplanner.converter.customer;
 
 import com.example.backeventplanner.annotation.Converter;
 import com.example.backeventplanner.controller.customer.models.CustomerRequestModel;
 import com.example.backeventplanner.controller.customer.models.CustomerResponseModel;
 import com.example.backeventplanner.controller.user.RegistrationModel;
+import com.example.backeventplanner.converter.customer.CustomerConverter;
 import com.example.backeventplanner.facade.customer.CustomerDTO;
 
 @Converter
-public class CustomerConverter {
+public class CustomerConverterImpl implements CustomerConverter {
 
+    @Override
     public CustomerDTO dtoFromRequest(CustomerRequestModel requestModel) {
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setName(requestModel.getName());
@@ -23,6 +25,7 @@ public class CustomerConverter {
         return customerDTO;
     }
 
+    @Override
     public CustomerResponseModel responseFromDto(CustomerDTO dto) {
         CustomerResponseModel customerResponseModel = new CustomerResponseModel();
         customerResponseModel.setId(dto.getId());
@@ -37,6 +40,7 @@ public class CustomerConverter {
         return customerResponseModel;
     }
 
+    @Override
     public CustomerRequestModel requestFromRegistrationModel(RegistrationModel model){
         CustomerRequestModel customerRequestModel = new CustomerRequestModel();
         customerRequestModel.setName(model.getFirstName());

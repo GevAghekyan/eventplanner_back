@@ -4,7 +4,7 @@ import com.example.backeventplanner.annotation.Facade;
 import com.example.backeventplanner.controller.employee.models.EmployeeRequestModel;
 import com.example.backeventplanner.controller.employee.models.EmployeeResponseModel;
 import com.example.backeventplanner.controller.employee.models.EmployeeShortResponse;
-import com.example.backeventplanner.converter.EmployeeConverter;
+import com.example.backeventplanner.converter.employee.EmployeeConverterImpl;
 import com.example.backeventplanner.facade.portfolio.PortfolioDTO;
 import com.example.backeventplanner.service.employee.EmployeeService;
 import com.example.backeventplanner.service.portfolio.PortfolioService;
@@ -19,19 +19,19 @@ import java.util.stream.Collectors;
 @Facade
 public class EmployeeFacade {
 
-    private final EmployeeConverter employeeConverter;
+    private final EmployeeConverterImpl employeeConverterImpl;
     private final EmployeeService employeeService;
     private final PortfolioService portfolioService;
 
     @Autowired
-    public EmployeeFacade(EmployeeConverter employeeConverter, EmployeeService employeeService, PortfolioService portfolioService) {
-        this.employeeConverter = employeeConverter;
+    public EmployeeFacade(EmployeeConverterImpl employeeConverterImpl, EmployeeService employeeService, PortfolioService portfolioService) {
+        this.employeeConverterImpl = employeeConverterImpl;
         this.employeeService = employeeService;
         this.portfolioService = portfolioService;
     }
 
     public Boolean create(EmployeeRequestModel requestModel, MultipartFile logo, MultipartFile image1) {
-        EmployeeDTO dto = employeeConverter.dtoFromRequest(requestModel);
+        EmployeeDTO dto = employeeConverterImpl.dtoFromRequest(requestModel);
         EmployeeDTO saved = employeeService.create(dto);
         boolean check = saved.getId() != null;
         if (check){
@@ -57,7 +57,7 @@ public class EmployeeFacade {
 
     public EmployeeResponseModel getById(Long id) {
         EmployeeDTO byId = employeeService.getById(id);
-        return employeeConverter.responseFromDto(byId);
+        return employeeConverterImpl.responseFromDto(byId);
     }
 
     public List<EmployeeShortResponse> getEmployeesByType(String type) {
@@ -68,7 +68,7 @@ public class EmployeeFacade {
     public ArrayList<EmployeeResponseModel> getAll() {
         ArrayList<EmployeeDTO> all = employeeService.getAll();
         List<EmployeeResponseModel> collect = all.stream()
-                .map(each -> employeeConverter.responseFromDto(each))
+                .map(each -> employeeConverterImpl.responseFromDto(each))
                 .collect(Collectors.toList());
         return (ArrayList<EmployeeResponseModel>) collect;
     }
@@ -77,8 +77,8 @@ public class EmployeeFacade {
 //     * its not update username, password & role*/
 
     public EmployeeResponseModel updateById(Long id, EmployeeRequestModel requestModel) {
-        EmployeeDTO saved = employeeService.updateById(id, employeeConverter.dtoFromRequest(requestModel));
-        return employeeConverter.responseFromDto(saved);
+        EmployeeDTO saved = employeeService.updateById(id, employeeConverterImpl.dtoFromRequest(requestModel));
+        return employeeConverterImpl.responseFromDto(saved);
     }
 
     public void deleteById(Long id) {

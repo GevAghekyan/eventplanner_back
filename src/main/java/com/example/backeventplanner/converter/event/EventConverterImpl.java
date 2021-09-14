@@ -1,13 +1,15 @@
-package com.example.backeventplanner.converter;
+package com.example.backeventplanner.converter.event;
 
 import com.example.backeventplanner.annotation.Converter;
 import com.example.backeventplanner.controller.event.models.EventRequestModel;
 import com.example.backeventplanner.controller.event.models.EventResponseModel;
+import com.example.backeventplanner.converter.event.EventConverter;
 import com.example.backeventplanner.facade.event.EventDTO;
 
 @Converter
-public class EventConverter {
+public class EventConverterImpl implements EventConverter {
 
+    @Override
     public EventDTO dtoFromRequest(EventRequestModel requestModel){
         EventDTO eventDTO = new EventDTO();
         eventDTO.setType(requestModel.getType());
@@ -20,6 +22,7 @@ public class EventConverter {
         return eventDTO;
     }
 
+    @Override
     public EventResponseModel responseFromDto(EventDTO dto){
         EventResponseModel eventResponseModel = new EventResponseModel();
         eventResponseModel.setId(dto.getId());
