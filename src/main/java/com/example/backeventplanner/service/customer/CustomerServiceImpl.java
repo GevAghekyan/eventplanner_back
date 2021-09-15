@@ -52,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     /*This method updates only info about customer
-     * its not update username, password & role*/
+     * it's not update username, password & role*/
 
     @Override
     public CustomerDTO updateById(Long id, CustomerDTO dto) {
@@ -72,7 +72,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepo.deleteById(id);
     }
 
-    private Customer customerFromDto(CustomerDTO dto) {
+    public Customer customerFromDto(CustomerDTO dto) {
         Customer customer = new Customer();
         customer.setId(dto.getId());
         customer.setName(dto.getName());
@@ -92,7 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
-    private CustomerDTO dtoFromCustomer(Customer customer) {
+    public CustomerDTO dtoFromCustomer(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
             customerDTO.setId(customer.getId());
             customerDTO.setName(customer.getName());

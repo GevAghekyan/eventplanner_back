@@ -13,6 +13,7 @@ public class PersonServiceImpl implements PersonService {
         this.personRepo = personRepo;
     }
 
+    @Override
     public Boolean checkedUserName(String userName) {
         Person byUserName = personRepo.findByUserName(userName);
         boolean check = byUserName == null;
