@@ -79,7 +79,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <finalName>backeventplanner</finalName>>
+        <finalName>backeventplanner</finalName>
     </build>
 
 </project>
