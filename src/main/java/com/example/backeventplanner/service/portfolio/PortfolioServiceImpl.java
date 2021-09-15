@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 @Service
-public class PortfolioServiceImpl implements PortfolioService{
+public class PortfolioServiceImpl implements PortfolioService {
 
     private final PortfolioRepo portfolioRepo;
     private final EmployeeRepo employeeRepo;
@@ -36,14 +36,13 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    //    @PostMapping(value = "/uploadProfilePicture", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String uploadPictureToAWS(MultipartFile file) throws IOException {
 
         InputStream inputStream = file.getInputStream();
 
         AWSCredentials credentials = new BasicAWSCredentials(
-                "AKIAV2R7TZQJJ7Z2P6HC",
-                "2AfiaAcxwgVD+EcKbJ4ykjHAYDp591X8GAsO8CB6"
+                "AKIAV2R7TZQJM776KZ4A",
+                "1vbRIPxQv9l47ySJhH2AiFnYDlppRGByKOtCakAs"
         );
 
         AWSStaticCredentialsProvider awsStaticCredentialsProvider = new AWSStaticCredentialsProvider(credentials);
@@ -82,7 +81,7 @@ public class PortfolioServiceImpl implements PortfolioService{
         return null;
     }
 
-    private Portfolio portfolioFromDto(PortfolioDTO dto){
+    private Portfolio portfolioFromDto(PortfolioDTO dto) {
         Portfolio portfolio = new Portfolio();
         portfolio.setId(dto.getId());
         portfolio.setName(dto.getName());
@@ -92,7 +91,7 @@ public class PortfolioServiceImpl implements PortfolioService{
         return portfolio;
     }
 
-    private PortfolioDTO dtoFromPortfolio(Portfolio portfolio){
+    private PortfolioDTO dtoFromPortfolio(Portfolio portfolio) {
         PortfolioDTO portfolioDTO = new PortfolioDTO();
         portfolioDTO.setId(portfolio.getId());
         portfolioDTO.setName(portfolio.getName());

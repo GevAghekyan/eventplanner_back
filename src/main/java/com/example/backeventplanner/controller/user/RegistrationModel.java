@@ -1,6 +1,5 @@
 package com.example.backeventplanner.controller.user;
 
-import java.io.File;
 import java.sql.Date;
 
 public class RegistrationModel {

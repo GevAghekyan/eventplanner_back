@@ -5,7 +5,6 @@ import com.example.backeventplanner.facade.employee.EmployeeDTO;
 import com.example.backeventplanner.persistence.employee.Employee;
 import com.example.backeventplanner.persistence.employee.EmployeeRepo;
 import com.example.backeventplanner.persistence.person.Person;
-import com.example.backeventplanner.persistence.person.PersonRepo;
 import com.example.backeventplanner.service.person.PersonService;
 import com.example.backeventplanner.service.portfolio.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,7 +132,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDTO;
     }
 
-    private EmployeeShortResponse employeeShortResponseFromEmployee(Employee employee){
+    private EmployeeShortResponse employeeShortResponseFromEmployee(Employee employee) {
         EmployeeShortResponse employeeShortResponse = new EmployeeShortResponse();
         employeeShortResponse.setId(employee.getId());
         employeeShortResponse.setCompanyName(employee.getCompanyName());
@@ -143,6 +142,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeShortResponse;
 
     }
-
 
 }

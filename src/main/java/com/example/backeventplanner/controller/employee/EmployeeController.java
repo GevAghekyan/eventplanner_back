@@ -1,11 +1,9 @@
 package com.example.backeventplanner.controller.employee;
 
-import com.example.backeventplanner.controller.customer.models.CustomerResponseModel;
 import com.example.backeventplanner.controller.employee.models.EmployeeRequestModel;
 import com.example.backeventplanner.controller.employee.models.EmployeeResponseModel;
 import com.example.backeventplanner.controller.employee.models.EmployeeShortResponse;
 import com.example.backeventplanner.facade.employee.EmployeeFacade;
-import com.example.backeventplanner.persistence.portfolio.PortfolioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

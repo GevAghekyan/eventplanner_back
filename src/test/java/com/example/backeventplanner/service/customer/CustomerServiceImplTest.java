@@ -89,7 +89,8 @@ class CustomerServiceImplTest {
     }
 
 //    INCOMPLETE
-    @Test
+
+//    @Test
     @DisplayName("Test for creating customer with duplicate username")
     public void testCreateWithDuplicateUsername(){
         CustomerDTO customerDTO = new CustomerDTO();

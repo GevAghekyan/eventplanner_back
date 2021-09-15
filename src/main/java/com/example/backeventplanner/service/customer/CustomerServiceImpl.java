@@ -4,7 +4,6 @@ import com.example.backeventplanner.facade.customer.CustomerDTO;
 import com.example.backeventplanner.persistence.customer.Customer;
 import com.example.backeventplanner.persistence.customer.CustomerRepo;
 import com.example.backeventplanner.persistence.person.Person;
-import com.example.backeventplanner.persistence.person.PersonRepo;
 import com.example.backeventplanner.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,17 +93,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     public CustomerDTO dtoFromCustomer(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
-            customerDTO.setId(customer.getId());
-            customerDTO.setName(customer.getName());
-            customerDTO.setSurname(customer.getSurname());
-            customerDTO.setGender(customer.getGender());
-            customerDTO.setPhoneNumber(customer.getPhoneNumber());
-            customerDTO.setDateOfBirth(customer.getDateOfBirth());
-            customerDTO.setEmail(customer.getEmail());
-            customerDTO.setUserName(customer.getUserName());
-            customerDTO.setPassword(customer.getPassword());
-            customerDTO.setRole();
-            customerDTO.setPersonId(customer.getPerson().getId());
+        customerDTO.setId(customer.getId());
+        customerDTO.setName(customer.getName());
+        customerDTO.setSurname(customer.getSurname());
+        customerDTO.setGender(customer.getGender());
+        customerDTO.setPhoneNumber(customer.getPhoneNumber());
+        customerDTO.setDateOfBirth(customer.getDateOfBirth());
+        customerDTO.setEmail(customer.getEmail());
+        customerDTO.setUserName(customer.getUserName());
+        customerDTO.setPassword(customer.getPassword());
+        customerDTO.setRole();
+        customerDTO.setPersonId(customer.getPerson().getId());
         return customerDTO;
     }
 }

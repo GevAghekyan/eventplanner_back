@@ -1,8 +1,5 @@
 package com.example.backeventplanner.facade.event;
 
-import com.example.backeventplanner.persistence.employee.EmployeeRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.UUID;

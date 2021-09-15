@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
@@ -54,5 +53,14 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "MyUserDetails{" +
+                "userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", authority=" + authority +
+                '}';
     }
 }

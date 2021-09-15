@@ -17,7 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final static String[] PERMIT_ALL_LIST = {
-            "/register",
+//            "/register",
+//            "/registration",
             "/http://localhost:8080/swagger-ui/"
     };
 

@@ -34,7 +34,7 @@ public class EmployeeFacade {
         EmployeeDTO dto = employeeConverterImpl.dtoFromRequest(requestModel);
         EmployeeDTO saved = employeeService.create(dto);
         boolean check = saved.getId() != null;
-        if (check){
+        if (check) {
             try {
                 String logoUrl = portfolioService.uploadPictureToAWS(logo);
                 PortfolioDTO portfolioDTO = new PortfolioDTO();
@@ -48,7 +48,7 @@ public class EmployeeFacade {
                 portfolioDTO1.setUrl(imageUrl);
                 portfolioDTO1.setEmployeeId(saved.getId());
                 portfolioService.savePicture(portfolioDTO1);
-            } catch (IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
