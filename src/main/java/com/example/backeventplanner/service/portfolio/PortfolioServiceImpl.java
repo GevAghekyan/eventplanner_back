@@ -41,8 +41,6 @@ public class PortfolioServiceImpl implements PortfolioService {
         InputStream inputStream = file.getInputStream();
 
         AWSCredentials credentials = new BasicAWSCredentials(
-                "AKIAV2R7TZQJM776KZ4A",
-                "1vbRIPxQv9l47ySJhH2AiFnYDlppRGByKOtCakAs"
         );
 
         AWSStaticCredentialsProvider awsStaticCredentialsProvider = new AWSStaticCredentialsProvider(credentials);
