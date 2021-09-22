@@ -41,6 +41,24 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public ArrayList<EventDTO> findAllByCustomerId(Long id) {
+        List<Event> all = eventRepo.findAllByCustomer_Id(id);
+        List<EventDTO> collect = all.stream()
+                .map(each -> dtoFromEvent(each))
+                .collect(Collectors.toList());
+        return (ArrayList<EventDTO>) collect;
+    }
+
+    @Override
+    public ArrayList<EventDTO> findAllByEventId(Long id) {
+        List<Event> all = eventRepo.findByEmployees_Id(id);
+        List<EventDTO> collect = all.stream()
+                .map(each -> dtoFromEvent(each))
+                .collect(Collectors.toList());
+        return (ArrayList<EventDTO>) collect;
+    }
+
+    @Override
     public ArrayList<EventDTO> getAll() {
         List<Event> all = eventRepo.findAll();
         List<EventDTO> collect = all.stream()

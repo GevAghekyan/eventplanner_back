@@ -11,6 +11,10 @@ public interface EventService {
 
     EventDTO getById(Long id);
 
+    ArrayList<EventDTO> findAllByCustomerId(Long customerId);
+
+    ArrayList<EventDTO> findAllByEventId(Long employeeId);
+
     ArrayList<EventDTO> getAll();
 
     EventDTO updateById(Long id, EventDTO dto);

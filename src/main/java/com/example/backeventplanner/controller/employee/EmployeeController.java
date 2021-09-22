@@ -27,7 +27,7 @@ public class EmployeeController {
 //        return ResponseEntity.ok(responseModel);
 //    }
 
-    @GetMapping("/employee/create/{id}")
+    @GetMapping("/employee/get/{id}")
     public ResponseEntity<EmployeeResponseModel> getById(@PathVariable Long id) {
         EmployeeResponseModel byId = employeeFacade.getById(id);
         return ResponseEntity.ok(byId);

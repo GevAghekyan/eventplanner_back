@@ -1,7 +1,9 @@
 package com.example.backeventplanner.service.employee;
 
 import com.example.backeventplanner.controller.employee.models.EmployeeShortResponse;
+import com.example.backeventplanner.facade.customer.CustomerDTO;
 import com.example.backeventplanner.facade.employee.EmployeeDTO;
+import com.example.backeventplanner.persistence.customer.Customer;
 import com.example.backeventplanner.persistence.employee.Employee;
 import com.example.backeventplanner.persistence.employee.EmployeeRepo;
 import com.example.backeventplanner.persistence.person.Person;
@@ -44,6 +46,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO getById(Long id) {
         Employee byId = employeeRepo.getById(id);
         return dtoFromEmployee(byId);
+    }
+
+    @Override
+    public EmployeeDTO findByUserName(String userName) {
+        Employee byUserName = employeeRepo.findByUserName(userName);
+        return dtoFromEmployee(byUserName);
     }
 
     @Override
@@ -114,6 +122,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDTO dtoFromEmployee(Employee employee) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
+        if (employee != null){
         employeeDTO.setId(employee.getId());
         employeeDTO.setName(employee.getName());
         employeeDTO.setSurname(employee.getSurname());
@@ -128,7 +137,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDTO.setUserName(employee.getUserName());
         employeeDTO.setPassword(employee.getPassword());
         employeeDTO.setRole();
-        employeeDTO.setPersonId(employee.getPerson().getId());
+        employeeDTO.setPersonId(employee.getPerson().getId());}
         return employeeDTO;
     }
 

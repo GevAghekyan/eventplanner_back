@@ -16,6 +16,7 @@ import com.example.backeventplanner.persistence.employee.EmployeeRepo;
 import com.example.backeventplanner.persistence.portfolio.Portfolio;
 import com.example.backeventplanner.persistence.portfolio.PortfolioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,6 +42,8 @@ public class PortfolioServiceImpl implements PortfolioService {
         InputStream inputStream = file.getInputStream();
 
         AWSCredentials credentials = new BasicAWSCredentials(
+                "AKIAV2R7TZQJNURZAK5J",
+                "bsJ9DV6VYu8cu3BKVvS8cbXYv/tN65WR/r69YlAO"
         );
 
         AWSStaticCredentialsProvider awsStaticCredentialsProvider = new AWSStaticCredentialsProvider(credentials);

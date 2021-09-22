@@ -42,6 +42,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDTO findByUserName(String userName) {
+        Customer byUserName = customerRepo.findByUserName(userName);
+        return dtoFromCustomer(byUserName);
+    }
+
+    @Override
     public ArrayList<CustomerDTO> getAll() {
         List<Customer> all = customerRepo.findAll();
         List<CustomerDTO> collect = all.stream()

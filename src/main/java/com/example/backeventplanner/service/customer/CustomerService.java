@@ -10,6 +10,8 @@ public interface CustomerService {
 
     CustomerDTO getById(Long id);
 
+    CustomerDTO findByUserName(String userName);
+
     ArrayList<CustomerDTO> getAll();
 
     CustomerDTO updateById(Long id, CustomerDTO dto);

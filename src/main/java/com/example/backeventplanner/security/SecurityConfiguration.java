@@ -23,12 +23,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     };
 
     private final static String[] PERMIT_ADMIN_OR_USER_LIST = {
-            "/order",
-            "/persons",
-            "/product",
-            "/product/{id}",
-            "/products",
-            "/products/name/{name}"
+            "/login",
+            "/login/events"
     };
 
     private final static String[] PERMIT_ADMIN_LIST = {
@@ -63,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
 //                .antMatchers(PERMIT_ADMIN_LIST).hasRole("ADMIN")
-                .antMatchers("/login").hasAnyRole("ADMIN","USER")
+                .antMatchers("/login","/login/events").hasAnyRole("ADMIN","USER")
                 .antMatchers(PERMIT_ALL_LIST).permitAll()
                 .and().httpBasic();
     }

@@ -4,10 +4,13 @@ import com.example.backeventplanner.converter.customer.CustomerConverter;
 import com.example.backeventplanner.converter.employee.EmployeeConverter;
 import com.example.backeventplanner.facade.customer.CustomerFacade;
 import com.example.backeventplanner.facade.employee.EmployeeFacade;
+import com.example.backeventplanner.facade.user.UserFacade;
+import com.example.backeventplanner.security.MyUserDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,45 +24,17 @@ public class UserController {
     private final EmployeeConverter employeeConverter;
     private final CustomerFacade customerFacade;
     private final EmployeeFacade employeeFacade;
+    private final UserFacade userFacade;
 
     @Autowired
     public UserController(CustomerConverter customerConverter, EmployeeConverter employeeConverter,
-                          CustomerFacade customerFacade, EmployeeFacade employeeFacade) {
+                          CustomerFacade customerFacade, EmployeeFacade employeeFacade, UserFacade userFacade) {
         this.customerConverter = customerConverter;
         this.employeeConverter = employeeConverter;
         this.customerFacade = customerFacade;
         this.employeeFacade = employeeFacade;
+        this.userFacade = userFacade;
     }
-
-//    //    @PostMapping(value = "/uploadProfilePicture", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-//    public String uploadPictureToAWS(MultipartFile file) throws IOException {
-//
-//        InputStream inputStream = file.getInputStream();
-//
-//        AWSCredentials credentials = new BasicAWSCredentials(
-//                "AKIAV2R7TZQJJ7Z2P6HC",
-//                "2AfiaAcxwgVD+EcKbJ4ykjHAYDp591X8GAsO8CB6"
-//        );
-//
-//        AWSStaticCredentialsProvider awsStaticCredentialsProvider = new AWSStaticCredentialsProvider(credentials);
-//
-//        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-//                .withCredentials(awsStaticCredentialsProvider)
-//                .withRegion(Regions.US_EAST_1)
-//                .build();
-//
-//        ObjectMetadata objectMetadata = new ObjectMetadata();
-//
-//        String filename = UUID.randomUUID().toString() + file.getOriginalFilename();
-//
-//        PutObjectRequest requestFile = new PutObjectRequest("eventplanners3", filename, inputStream, objectMetadata);
-//        requestFile.withCannedAcl(CannedAccessControlList.PublicRead);
-//        PutObjectResult putObjectResult = s3Client.putObject(requestFile);
-//
-//        String pictureURL = s3Client.getUrl("eventplanners3", file.getOriginalFilename()).toExternalForm();
-//
-//        return pictureURL;
-//    }
 
     @PostMapping("/registration")
     public ResponseEntity<Boolean> registerCustomer(@RequestBody RegistrationModel model) {
@@ -79,8 +54,19 @@ public class UserController {
     }
 
     @GetMapping(value = "/login")
-    public ResponseEntity<Boolean> login() {
-//        System.out.println(person.getId());
+    public ResponseEntity<Boolean> login(@AuthenticationPrincipal MyUserDetails user) {
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println(user.getAuthorities());
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping(value = "/login/events")
+    public ResponseEntity<UserResponseModel> loginEvents(@AuthenticationPrincipal MyUserDetails user) {
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println(user.getAuthorities());
+        UserResponseModel userResponseModel = userFacade.get(user.getUsername());
+        return ResponseEntity.ok(userResponseModel);
     }
 }

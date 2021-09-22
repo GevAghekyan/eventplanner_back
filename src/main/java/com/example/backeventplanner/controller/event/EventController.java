@@ -25,7 +25,7 @@ public class EventController {
         return ResponseEntity.ok(responseModel);
     }
 
-    @GetMapping("/event/create/{id}")
+    @GetMapping("/event/get/{id}")
     public ResponseEntity<EventResponseModel> getById(@PathVariable Long id) {
         EventResponseModel byId = eventFacade.getById(id);
         return ResponseEntity.ok(byId);

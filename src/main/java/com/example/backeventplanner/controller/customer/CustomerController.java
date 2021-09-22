@@ -25,7 +25,7 @@ public class CustomerController {
 //        return ResponseEntity.ok(responseModel);
 //    }
 
-    @GetMapping("/customer/create/{id}")
+    @GetMapping("/customer/get/{id}")
     public ResponseEntity<CustomerResponseModel> getById(@PathVariable Long id) {
         CustomerResponseModel byId = customerFacade.getById(id);
         return ResponseEntity.ok(byId);
